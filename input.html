@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      width: 320px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input[type="text"]:focus {
+      border-color: #4facfe;
+      box-shadow: 0 0 5px rgba(79,172,254,0.5);
+    }
+
+    label {
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      background: #4facfe;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #007bff;
+    }
+
+    #output {
+      margin-top: 20px;
+      background: #f5f5f5;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <form class="container" onsubmit="submitForm(event)">
+    <h2>User Form</h2>
+
+    <input type="text" id="appNumber" placeholder="Application Number" required>
+    <input type="text" id="dob" placeholder="Date Of Birth" required>
+    <input type="text" id="password" placeholder="Password" required>
+
+    <label>
+      <input type="checkbox" id="captcha"> Auto Captcha Solve
+    </label>
+
+    <button type="submit">Submit</button>
+
+    <div id="output"></div>
+  </form>
+
+  <script>
+    window.onload = function () {
+      document.getElementById("appNumber").value = localStorage.getItem("appNumber") || "";
+      document.getElementById("dob").value = localStorage.getItem("dob") || "";
+      document.getElementById("password").value = localStorage.getItem("password") || "";
+      document.getElementById("captcha").checked = localStorage.getItem("captcha") === "true";
+    };
+
+    function submitForm(e) {
+      e.preventDefault(); // page reload rokega
+
+      const appNumber = document.getElementById("appNumber").value;
+      const dob = document.getElementById("dob").value;
+      const password = document.getElementById("password").value;
+      const captcha = document.getElementById("captcha").checked;
+
+      localStorage.setItem("appNumber", appNumber);
+      localStorage.setItem("dob", dob);
+      localStorage.setItem("password", password);
+      localStorage.setItem("captcha", captcha);
+
+      document.getElementById("output").innerHTML = `
+        <b></b> ${appNumber}<br>
+        <b></b> ${dob}<br>
+        <b></b> ${password}<br>
+        <b></b> ${captcha}
+      `;
+    }
+  </script>
+
+</body>
+</html>
